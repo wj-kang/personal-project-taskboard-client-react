@@ -1,17 +1,31 @@
 import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useInput } from '../../utils/customHooks';
+import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
 
 function LandingPageFormLogin() {
   const navigate = useNavigate();
+  const emailInput = useInput('', emailValidator);
+  const passwordInput = useInput('', passwordValidator);
 
   return (
     <div className={styles.container}>
       <h1>Login</h1>
-      <TextField name="email" variant="outlined" label="Email" required fullWidth />
+      <TextField
+        {...emailInput}
+        error={emailInput.value.length > 0 && !emailInput.isValid}
+        name="email"
+        variant="outlined"
+        label="Email"
+        required
+        fullWidth
+      />
 
       <TextField
+        {...passwordInput}
+        error={passwordInput.value.length > 0 && !passwordInput.isValid}
         name="password"
         type="password"
         variant="outlined"
@@ -22,8 +36,8 @@ function LandingPageFormLogin() {
       />
 
       <Button
+        disabled={!emailInput.isValid || !passwordInput.isValid}
         type="submit"
-        disabled={false}
         variant="contained"
         size="large"
         fullWidth
