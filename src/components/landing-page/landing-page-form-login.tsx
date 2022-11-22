@@ -1,17 +1,52 @@
-import { Button, TextField } from '@mui/material';
-import React from 'react';
+import { Button, TextField, Typography } from '@mui/material';
+import { AxiosResponse } from 'axios';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { userAPI } from '../../apis';
+import { useAppDispatch } from '../../app/hooks';
 import { useInput } from '../../utils/customHooks';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
 
+interface loginResponseData {
+  id: string;
+  email: string;
+  type: string;
+  token: string;
+}
+
 function LandingPageFormLogin() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const emailInput = useInput('', emailValidator);
   const passwordInput = useInput('', passwordValidator);
+  const [error, setError] = useState<string>('');
+
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      const response: AxiosResponse<loginResponseData> = await userAPI().post('/login', {
+        email: emailInput.value,
+        password: passwordInput.value,
+      });
+
+      const { id, email, type, token } = response.data;
+      dispatch({ type: 'user/login', payload: { id, email, type } });
+      sessionStorage.setItem('token', token);
+
+      navigate('/main');
+      //
+    } catch (e: any) {
+      if (e.response?.status === 400) {
+        setError(e.response.data.error);
+      } else {
+        setError(e.toString());
+      }
+    }
+  }
 
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleLogin} className={styles.container}>
       <h1>Login</h1>
       <TextField
         {...emailInput}
@@ -35,6 +70,10 @@ function LandingPageFormLogin() {
         sx={{ marginTop: '1rem' }}
       />
 
+      <Typography variant="body1" sx={{ color: 'red', marginTop: '1rem' }}>
+        {error.length > 0 && error}
+      </Typography>
+
       <Button
         disabled={!emailInput.isValid || !passwordInput.isValid}
         type="submit"
@@ -55,7 +94,7 @@ function LandingPageFormLogin() {
         Need an Account? Register
       </Button>
       <div className={styles.btns}></div>
-    </div>
+    </form>
   );
 }
 
