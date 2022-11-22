@@ -4,16 +4,10 @@
   align-items: center;
 }
 
-.container h1 {
-  font-size: 4rem;
-  color: #333333;
-  margin: 0;
-}
-
 .container h3 {
-  color: #333333;
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  color: #333333;
 }
 
 .btns {
