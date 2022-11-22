@@ -1,6 +1,7 @@
-import { Button, TextField } from '@mui/material';
-import React from 'react';
+import { Button, TextField, Typography } from '@mui/material';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { userAPI } from '../../apis';
 import { useInput } from '../../utils/customHooks';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
@@ -10,9 +11,30 @@ function LandingPageFormRegister() {
   const emailInput = useInput('', emailValidator);
   const passwordInput = useInput('', passwordValidator);
   const passwordCheckInput = useInput('', (v) => passwordInput.value === v);
+  const [error, setError] = useState<string>('');
+
+  async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    try {
+      await userAPI().post('/register', {
+        email: emailInput.value,
+        password: passwordInput.value,
+      });
+
+      alert(`New account has been created 🎉\nPlease login with your account.`);
+      navigate('/login');
+      //
+    } catch (e: any) {
+      if (e.response?.status === 400) {
+        setError(e.response.data.error);
+      } else {
+        setError(e.toString());
+      }
+    }
+  }
 
   return (
-    <div className={styles.container}>
+    <form onSubmit={handleRegister} className={styles.container}>
       <h1>Register</h1>
       <TextField
         {...emailInput}
@@ -48,6 +70,10 @@ function LandingPageFormRegister() {
         sx={{ marginTop: '0.75rem' }}
       />
 
+      <Typography variant="body1" sx={{ color: 'red', marginTop: '1rem' }}>
+        {error.length > 0 && error}
+      </Typography>
+
       <Button
         disabled={!emailInput.isValid || !passwordInput.isValid || !passwordCheckInput.isValid}
         type="submit"
@@ -68,7 +94,7 @@ function LandingPageFormRegister() {
         Already Registered? Login
       </Button>
       <div className={styles.btns}></div>
-    </div>
+    </form>
   );
 }
 
