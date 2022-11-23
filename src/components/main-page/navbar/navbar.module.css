@@ -1,0 +1,19 @@
+.navbar {
+  height: 4rem;
+  /* box-shadow: 0 1px 1px rgba(255, 255, 255, 0.3); */
+  border-bottom: 1px solid #ffffff40;
+  z-index: 1;
+  background-color: #05669f;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.btns {
+}
