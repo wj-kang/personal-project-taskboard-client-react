@@ -5,13 +5,7 @@ import styles from './landing-page-index.module.css';
 import { userAPI } from '../../apis';
 import { AxiosResponse } from 'axios';
 import { useAppDispatch } from '../../app/hooks';
-
-interface loginResponseData {
-  id: string;
-  email: string;
-  type: string;
-  token: string;
-}
+import { UserLoginDTO } from '../../types/user';
 
 function LandingPageIndex() {
   const navigate = useNavigate();
@@ -19,11 +13,12 @@ function LandingPageIndex() {
 
   async function handleGuestEnter() {
     try {
-      const response: AxiosResponse<loginResponseData> = await userAPI().get('/guest');
-      const { id, email, type, token } = response.data;
+      const response: AxiosResponse<UserLoginDTO> = await userAPI().get('/guest');
+      const { id, email, type, boards, token } = response.data;
 
-      dispatch({ type: 'user/login', payload: { id, email, type } });
       sessionStorage.setItem('token', token);
+      dispatch({ type: 'user/login', payload: { id, email, type } });
+      dispatch({ type: 'boardlist/set', payload: boards });
 
       navigate('/main');
       //

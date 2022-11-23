@@ -4,16 +4,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userAPI } from '../../apis';
 import { useAppDispatch } from '../../app/hooks';
+import { UserLoginDTO } from '../../types/user';
 import { useInput } from '../../utils/customHooks';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
-
-interface loginResponseData {
-  id: string;
-  email: string;
-  type: string;
-  token: string;
-}
 
 function LandingPageFormLogin() {
   const navigate = useNavigate();
@@ -25,14 +19,16 @@ function LandingPageFormLogin() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response: AxiosResponse<loginResponseData> = await userAPI().post('/login', {
+      const response: AxiosResponse<UserLoginDTO> = await userAPI().post('/login', {
         email: emailInput.value,
         password: passwordInput.value,
       });
 
-      const { id, email, type, token } = response.data;
-      dispatch({ type: 'user/login', payload: { id, email, type } });
+      const { id, email, type, boards, token } = response.data;
+
       sessionStorage.setItem('token', token);
+      dispatch({ type: 'user/login', payload: { id, email, type } });
+      dispatch({ type: 'boardlist/set', payload: boards });
 
       navigate('/main');
       //

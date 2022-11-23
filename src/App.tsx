@@ -4,6 +4,7 @@ import LandingPageIndex from './components/landing-page/landing-page-index';
 import LandingPage from './pages/landing-page';
 import LandingPageFormLogin from './components/landing-page/landing-page-form-login';
 import LandingPageFormRegister from './components/landing-page/landing-page-form-register';
+import MainPage from './pages/main-page';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
           <Route path="login" element={<LandingPageFormLogin />} />
           <Route path="register" element={<LandingPageFormRegister />} />
         </Route>
+
+        <Route path="/main" element={<MainPage />}></Route>
       </Routes>
     </BrowserRouter>
   );

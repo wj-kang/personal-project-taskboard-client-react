@@ -1,13 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
+
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
 
-export function userAPI() {
+export function userAPI(): AxiosInstance {
   return axios.create({
     baseURL: `${BASE_URL}/api/user`,
   });
 }
 
-export function boardAPI() {
+export function boardAPI(): AxiosInstance {
   return axios.create({
     baseURL: `${BASE_URL}/api/board`,
     headers: {
@@ -17,7 +18,7 @@ export function boardAPI() {
   });
 }
 
-export function listAPI() {
+export function listAPI(): AxiosInstance {
   return axios.create({
     baseURL: `${BASE_URL}/api/tasklist`,
     headers: {
@@ -27,7 +28,7 @@ export function listAPI() {
   });
 }
 
-export function taskAPI() {
+export function taskAPI(): AxiosInstance {
   return axios.create({
     baseURL: `${BASE_URL}/api/task`,
     headers: {
@@ -37,6 +38,6 @@ export function taskAPI() {
   });
 }
 
-function getTokenFromStorage() {
+function getTokenFromStorage(): string {
   return sessionStorage.getItem('token') || '';
 }
