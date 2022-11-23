@@ -1,11 +1,9 @@
-import { Button, TextField, Typography } from '@mui/material';
-import { AxiosResponse } from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userAPI } from '../../apis';
 import { useAppDispatch } from '../../app/hooks';
-import { UserLoginDTO } from '../../types/user';
 import { useInput } from '../../utils/customHooks';
+import { userLoginAPI } from '../../features/user/userAPI';
+import { Button, TextField, Typography } from '@mui/material';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
 
@@ -19,14 +17,7 @@ function LandingPageFormLogin() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const response: AxiosResponse<UserLoginDTO> = await userAPI().post('/login', {
-        email: emailInput.value,
-        password: passwordInput.value,
-      });
-
-      const { id, email, type, boards, token } = response.data;
-
-      sessionStorage.setItem('token', token);
+      const { id, email, type, boards } = await userLoginAPI(emailInput.value, passwordInput.value);
       dispatch({ type: 'user/login', payload: { id, email, type } });
       dispatch({ type: 'boardlist/set', payload: boards });
 

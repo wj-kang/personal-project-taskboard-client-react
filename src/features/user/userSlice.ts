@@ -21,9 +21,10 @@ export const userSlice = createSlice({
       state.email = action.payload.email;
       state.type = action.payload.type;
     },
-    // Use the PayloadAction type to declare the contents of `action.payload`
     logout: (state) => {
-      state = initialState;
+      state.id = '';
+      state.email = '';
+      state.type = '';
     },
   },
 });

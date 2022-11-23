@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userAPI } from '../../apis';
+import { userRegisterAPI } from '../../features/user/userAPI';
 import { useInput } from '../../utils/customHooks';
 import { emailValidator, passwordValidator } from '../../utils/validators';
 import styles from './landing-page-form.module.css';
@@ -16,10 +16,7 @@ function LandingPageFormRegister() {
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      await userAPI().post('/register', {
-        email: emailInput.value,
-        password: passwordInput.value,
-      });
+      await userRegisterAPI(emailInput.value, passwordInput.value);
 
       alert(`New account has been created 🎉\nPlease login with your account.`);
       navigate('/login');

@@ -7,7 +7,13 @@ export async function userLoginAPI(email: string, password: string): Promise<Use
     email,
     password,
   });
+  sessionStorage.setItem('token', res.data.token);
 
+  return res.data;
+}
+
+export async function userGuestAPI(): Promise<UserLoginDTO> {
+  const res: AxiosResponse<UserLoginDTO> = await userAPI().get('/guest');
   sessionStorage.setItem('token', res.data.token);
 
   return res.data;

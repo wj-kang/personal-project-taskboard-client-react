@@ -2,10 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styles from './landing-page-index.module.css';
-import { userAPI } from '../../apis';
-import { AxiosResponse } from 'axios';
 import { useAppDispatch } from '../../app/hooks';
-import { UserLoginDTO } from '../../types/user';
+import { userGuestAPI } from '../../features/user/userAPI';
 
 function LandingPageIndex() {
   const navigate = useNavigate();
@@ -13,10 +11,7 @@ function LandingPageIndex() {
 
   async function handleGuestEnter() {
     try {
-      const response: AxiosResponse<UserLoginDTO> = await userAPI().get('/guest');
-      const { id, email, type, boards, token } = response.data;
-
-      sessionStorage.setItem('token', token);
+      const { id, email, type, boards } = await userGuestAPI();
       dispatch({ type: 'user/login', payload: { id, email, type } });
       dispatch({ type: 'boardlist/set', payload: boards });
 
