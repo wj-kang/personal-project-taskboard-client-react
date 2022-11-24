@@ -22,7 +22,7 @@ function Sidebar() {
 
   // When selected idx changes, fetching board data
   useEffect(() => {
-    if (boards.length < 1) {
+    if (!boards || boards.length < 1) {
       return;
     }
     (async function () {
@@ -31,7 +31,7 @@ function Sidebar() {
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBoardIdx]);
+  }, [boards, selectedBoardIdx]);
 
   return (
     <aside className={styles.sidebar}>
