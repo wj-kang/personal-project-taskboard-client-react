@@ -27,3 +27,14 @@ export async function userRegisterAPI(email: string, password: string) {
 
   return res.data;
 }
+
+export async function userGetAPI(token: string): Promise<UserLoginDTO> {
+  const res: AxiosResponse<UserLoginDTO> = await userAPI().get('/', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  });
+
+  return res.data;
+}

@@ -38,6 +38,6 @@ export function taskAPI(): AxiosInstance {
   });
 }
 
-function getTokenFromStorage(): string {
+export function getTokenFromStorage(): string {
   return sessionStorage.getItem('token') || '';
 }
