@@ -1,26 +1,22 @@
+import { BoardBaseDTO } from './../../types/board';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface BoardListState {
-  id: string;
-  title: string;
-}
-
-const initialState: BoardListState[] = [];
+const initialState: BoardBaseDTO[] = [];
 
 export const boardListSlice = createSlice({
   name: 'boardlist',
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<BoardListState[]>) => {
+    set: (state, action: PayloadAction<BoardBaseDTO[]>) => {
       action.payload.forEach((el) => state.push(el));
     },
     //
-    add: (state, action: PayloadAction<BoardListState>) => {
+    add: (state, action: PayloadAction<BoardBaseDTO>) => {
       const { id, title } = action.payload;
       state.push({ id, title });
     },
     //
-    updateTitle: (state, action: PayloadAction<BoardListState>) => {
+    updateTitle: (state, action: PayloadAction<BoardBaseDTO>) => {
       const { id, title } = action.payload;
       state.forEach((el) => (el.id === id ? (el.title = title) : null));
     },
@@ -39,7 +35,7 @@ export const boardListSlice = createSlice({
 export const { set, add, updateTitle, updateOrder, remove } = boardListSlice.actions;
 export default boardListSlice.reducer;
 
-function reorderArray(array: BoardListState[], idx: number, targetIdx: number): void {
+function reorderArray(array: BoardBaseDTO[], idx: number, targetIdx: number): void {
   if (idx < 0 || targetIdx < 0 || idx >= array.length || targetIdx >= array.length) {
     return;
   }
