@@ -18,10 +18,11 @@ export const boardListSlice = createSlice({
   initialState,
   reducers: {
     setBoard: (state, action: PayloadAction<BoardState>) => {
-      const { id, title, lists } = action.payload;
-      state.id = id;
-      state.title = title;
-      state.lists = lists;
+      return action.payload;
+    },
+    //
+    updateBoardTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
     },
     //
     addList: (state, action: PayloadAction<TaskList>) => {

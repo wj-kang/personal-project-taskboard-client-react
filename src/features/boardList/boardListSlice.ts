@@ -8,12 +8,11 @@ export const boardListSlice = createSlice({
   initialState,
   reducers: {
     set: (state, action: PayloadAction<BoardBaseDTO[]>) => {
-      action.payload.forEach((el) => state.push(el));
+      return action.payload;
     },
     //
     add: (state, action: PayloadAction<BoardBaseDTO>) => {
-      const { id, title } = action.payload;
-      state.push({ id, title });
+      state.push(action.payload);
     },
     //
     updateTitle: (state, action: PayloadAction<BoardBaseDTO>) => {
