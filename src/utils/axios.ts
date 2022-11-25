@@ -20,7 +20,7 @@ export function boardAPI(): AxiosInstance {
 
 export function listAPI(): AxiosInstance {
   return axios.create({
-    baseURL: `${BASE_URL}/api/tasklist`,
+    baseURL: `${BASE_URL}/api/list`,
     headers: {
       Authorization: `Bearer ${getTokenFromStorage()}`,
     },
