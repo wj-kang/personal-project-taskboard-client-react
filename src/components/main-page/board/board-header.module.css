@@ -1,0 +1,27 @@
+.title_input {
+  font-size: 1.5rem;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+  outline: none;
+  color: white;
+  transition: background 150ms ease-in;
+
+  width: 100%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title_input:hover {
+  background: #ffffff70;
+  cursor: pointer;
+}
+
+.title_input:focus {
+  background: #f5f5f5;
+  cursor: text;
+  color: #333333;
+}

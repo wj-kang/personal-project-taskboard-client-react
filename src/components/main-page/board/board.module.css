@@ -1,4 +1,8 @@
 .main {
   width: 100%;
   background-color: #0379be;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
 }

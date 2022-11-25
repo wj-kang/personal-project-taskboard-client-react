@@ -42,6 +42,10 @@
 
 .sidebar li {
   padding: 0.25rem 0.75rem 0.25rem 1.25rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sidebar li:hover {
