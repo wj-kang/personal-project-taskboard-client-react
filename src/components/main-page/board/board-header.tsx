@@ -11,9 +11,7 @@ function BoardHeader() {
   const { id, title } = useAppSelector((state) => state.board);
   const [titleInput, setTitleInput] = useState<string>('');
 
-  useEffect(() => {
-    setTitleInput(title);
-  }, [title]);
+  useEffect(() => setTitleInput(title), [title]);
 
   async function handleUpdateBoardTitle() {
     try {
@@ -42,7 +40,7 @@ function BoardHeader() {
           }
         }}
         spellCheck="false"
-      ></input>
+      />
     </header>
   );
 }

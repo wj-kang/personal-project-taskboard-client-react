@@ -1,0 +1,32 @@
+.container {
+  margin-top: 0.4rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lists {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: flex;
+  gap: 0.5rem;
+}
+
+.list_add {
+  font-size: inherit;
+  text-align: start;
+  display: inline;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.3);
+  width: 18rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.list_add:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

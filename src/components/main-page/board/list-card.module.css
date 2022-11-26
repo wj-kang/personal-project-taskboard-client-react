@@ -1,0 +1,54 @@
+.list {
+  width: 18rem;
+  padding: 0.5rem;
+  background: #eeeeee;
+  border-radius: 0.25rem;
+}
+
+.list_header {
+  display: flex;
+  gap: 1rem;
+}
+
+.list_header button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.15rem 0.3rem;
+}
+
+.list_header button:hover {
+  opacity: 0.7;
+}
+
+.title_input {
+  flex-grow: 1;
+  font-size: 1rem;
+  padding: 0.15rem 0.3rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+  outline: none;
+  color: #333333;
+  border: 2px solid rgba(0, 0, 0, 0);
+  transition: background 150ms ease-in;
+
+  width: 100%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title_input:hover {
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.title_input:focus {
+  background: #ffffff;
+  cursor: text;
+  border: 2px solid #05669f;
+}

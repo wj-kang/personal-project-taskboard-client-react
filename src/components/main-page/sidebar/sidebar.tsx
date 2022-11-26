@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { fetchBoardById } from '../../../features/board/boardAPI';
 import { addNewBoardAPI } from '../../../features/boardList/boardListAPI';
-import { BoardBaseDTO } from '../../../types/board';
+import { BoardBaseDTO, BoardDetailDTO } from '../../../types/board';
 import SidebarListItem from './sidebar-list-item';
 import styles from './sidebar.module.css';
 
@@ -26,7 +26,7 @@ function Sidebar() {
       return;
     }
     (async function () {
-      const data = await fetchBoardById(boards[selectedBoardIdx].id);
+      const data: BoardDetailDTO = await fetchBoardById(boards[selectedBoardIdx].id);
       dispatch({ type: 'board/setBoard', payload: data });
     })();
 
