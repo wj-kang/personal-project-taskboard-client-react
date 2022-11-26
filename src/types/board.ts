@@ -1,4 +1,4 @@
-import { TaskList } from './taskList';
+import { TaskListDetailDTO } from './taskList';
 
 export interface BoardBaseDTO {
   id: string;
@@ -6,5 +6,5 @@ export interface BoardBaseDTO {
 }
 
 export interface BoardDetailDTO extends BoardBaseDTO {
-  lists: TaskList[];
+  lists: TaskListDetailDTO[];
 }

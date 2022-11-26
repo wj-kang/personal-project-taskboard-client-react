@@ -1,10 +1,13 @@
-import { Task } from './task';
+import { TaskDTO } from './task';
 
-export interface TaskList {
+export interface TaskListBaseDTO {
   id: string;
   title: string;
   boardId: string;
-  tasks: Task[];
+}
+
+export interface TaskListDetailDTO extends TaskListBaseDTO {
+  tasks: TaskDTO[];
 
   createdAt: Date;
   updatedAt: Date;
