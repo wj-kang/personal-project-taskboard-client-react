@@ -1,10 +1,11 @@
+import { TaskDTO } from './../../types/task';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TaskList } from '../../types/taskList';
+import { TaskListDetailDTO } from '../../types/taskList';
 
 export interface BoardState {
   id: string;
   title: string;
-  lists: TaskList[];
+  lists: TaskListDetailDTO[];
 }
 
 const initialState: BoardState = {
@@ -25,11 +26,11 @@ export const boardListSlice = createSlice({
       state.title = action.payload;
     },
     //
-    addList: (state, action: PayloadAction<TaskList>) => {
+    addList: (state, action: PayloadAction<TaskListDetailDTO>) => {
       state.lists.push(action.payload);
     },
     //
-    updateListTitle: (state, action: PayloadAction<TaskList>) => {
+    updateListTitle: (state, action: PayloadAction<TaskListDetailDTO>) => {
       const { id, title } = action.payload;
       state.lists.forEach((el) => (el.id === id ? (el.title = title) : null));
     },
@@ -41,6 +42,11 @@ export const boardListSlice = createSlice({
     //
     removeList: (state, action: PayloadAction<{ id: string }>) => {
       state.lists.filter((el) => el.id !== action.payload.id);
+    },
+    //
+    addTask: (state, action: PayloadAction<{ listIndex: number; data: TaskDTO }>) => {
+      const { listIndex, data } = action.payload;
+      state.lists[listIndex].tasks.push(data);
     },
   },
 });

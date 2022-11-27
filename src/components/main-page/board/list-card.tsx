@@ -42,6 +42,7 @@ function ListCard({ index }: ListCardProps) {
 
   return (
     <li className={styles.list}>
+      <div className={styles.drag_area}></div>
       <div className={styles.list_header}>
         <input
           className={styles.title_input}
@@ -61,7 +62,9 @@ function ListCard({ index }: ListCardProps) {
 
       <Tasks listIndex={index} />
 
-      <button onClick={handleAddNewTask}>{'+ Add a task'}</button>
+      <button className={styles.add_task_btn} onClick={handleAddNewTask}>
+        {'+ Add a task'}
+      </button>
     </li>
   );
 }

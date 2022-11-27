@@ -1,8 +1,25 @@
 .list {
   width: 18rem;
-  padding: 0.5rem;
+  padding: 2.5rem 0.5rem 0.5rem 0.5rem;
   background: #eeeeee;
-  border-radius: 0.25rem;
+  border-radius: 0.4rem;
+
+  height: fit-content;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.drag_area {
+  height: 2rem;
+  background: #62baec;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
 }
 
 .list_header {
@@ -24,8 +41,8 @@
 
 .title_input {
   flex-grow: 1;
-  font-size: 1rem;
-  padding: 0.15rem 0.3rem;
+  font-size: 1.125rem;
+  padding: 0.3rem 0.5rem;
   font-weight: bold;
   background: none;
   border: none;
@@ -51,4 +68,24 @@
   background: #ffffff;
   cursor: text;
   border: 2px solid #05669f;
+}
+
+.add_task_btn {
+  background: none;
+  border: none;
+  outline: none;
+  font: inherit;
+
+  width: 100%;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.25rem;
+  text-align: start;
+  margin-top: 0.5rem;
+  color: #777777;
+  cursor: pointer;
+}
+
+.add_task_btn:hover {
+  background: rgb(220, 220, 220);
+  color: #222222;
 }
