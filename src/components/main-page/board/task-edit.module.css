@@ -1,0 +1,36 @@
+.form {
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.title_input {
+  flex-grow: 1;
+  font-size: 1.125rem;
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+  outline: none;
+  color: #333333;
+  border: 2px solid rgba(0, 0, 0, 0);
+  transition: background 150ms ease-in;
+
+  width: 92%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title_input:hover {
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.title_input:focus {
+  background: #ffffff;
+  cursor: text;
+  border: 2px solid #05669f;
+}
