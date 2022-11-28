@@ -42,7 +42,6 @@ function ListCard({ index }: ListCardProps) {
 
   return (
     <li className={styles.list}>
-      <div className={styles.drag_area}></div>
       <div className={styles.list_header}>
         <input
           className={styles.title_input}
