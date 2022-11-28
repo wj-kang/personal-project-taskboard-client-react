@@ -1,4 +1,5 @@
 import React from 'react';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { addNewListAPI } from '../../../features/board/boardAPI';
 import ListCard from './list-card';
@@ -13,13 +14,29 @@ function Lists() {
     dispatch({ type: 'board/addList', payload: res });
   }
 
+  function handleDragEnd(result: DropResult) {
+    const { source, destination } = result;
+    if (!destination) {
+      return;
+    }
+    if (source.droppableId === 'lists') {
+      console.log('list drag');
+      // TODO
+      return;
+    }
+    // TODO: api call
+    dispatch({ type: 'board/taskDrag', payload: { src: source, dest: destination } });
+  }
+
   return (
     <div className={styles.container}>
-      <ul className={styles.lists}>
-        {lists.map((list, idx) => (
-          <ListCard index={idx} />
-        ))}
-      </ul>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <ul className={styles.lists}>
+          {lists.map((list, idx) => (
+            <ListCard key={list.id} index={idx} />
+          ))}
+        </ul>
+      </DragDropContext>
 
       <button className={styles.list_add} onClick={handleAddNewList}>
         + Add another list

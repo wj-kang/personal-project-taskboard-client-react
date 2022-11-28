@@ -13,9 +13,9 @@ interface ListCardProps {
 }
 
 function ListCard({ index }: ListCardProps) {
+  const dispatch = useAppDispatch();
   const { id: listId, title } = useAppSelector((state) => state.board.lists[index]);
   const [titleInput, setTitleInput] = useState<string>('');
-  const dispatch = useAppDispatch();
 
   useEffect(() => setTitleInput(title), [title]);
 

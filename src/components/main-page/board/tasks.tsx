@@ -1,4 +1,6 @@
 import React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
+
 import { useAppSelector } from '../../../app/hooks';
 import { TaskDTO } from '../../../types/task';
 import Task from './task';
@@ -13,7 +15,14 @@ function Tasks({ listIndex }: TasksProps) {
 
   return (
     <div className={styles.container}>
-      <ul className={styles.list}>{tasks && tasks.map((task) => <Task data={task} />)}</ul>
+      <Droppable droppableId={String(listIndex)}>
+        {(provided) => (
+          <ul ref={provided.innerRef} {...provided.droppableProps} className={styles.list}>
+            {tasks && tasks.map((task, idx) => <Task key={task.id} data={task} taskIndex={idx} />)}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
     </div>
   );
 }
