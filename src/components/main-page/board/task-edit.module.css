@@ -2,11 +2,12 @@
   width: 25rem;
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
 }
 
 .title_input {
   flex-grow: 1;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   padding: 0.3rem 0.5rem;
   font-weight: bold;
   background: none;
@@ -17,7 +18,7 @@
   border: 2px solid rgba(0, 0, 0, 0);
   transition: background 150ms ease-in;
 
-  width: 92%;
+  width: 80%;
 
   overflow: hidden;
   text-overflow: ellipsis;

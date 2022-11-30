@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/hooks';
@@ -6,6 +5,8 @@ import { TaskDTO } from '../../../types/task';
 import { taskAPI } from '../../../utils/axios';
 import Dimmer from '../../common/dimmer';
 import ModalWrapper from '../../common/modal-wrapper';
+import TaskEditDescription from './task-edit-description';
+import TaskEditDueDate from './task-edit-duedate';
 import styles from './task-edit.module.css';
 
 interface TaskEditProps {
@@ -13,7 +14,7 @@ interface TaskEditProps {
   handleClose: () => void;
 }
 function TaskEdit({ data, handleClose }: TaskEditProps) {
-  const { id, title, description, dueDate, label, createdAt, updatedAt, listId } = data;
+  const { id, title, description, dueDate, listId } = data;
   const [titleInput, setTitleInput] = useState<string>('');
   const dispatch = useAppDispatch();
 
@@ -35,7 +36,7 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
   return (
     <Dimmer>
       <ModalWrapper handleClose={handleClose}>
-        <form className={styles.form}>
+        <div className={styles.form}>
           <input
             className={styles.title_input}
             type="text"
@@ -49,9 +50,9 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
             }}
             spellCheck="false"
           />
-          <input type="textarea" />
-          <input type="date" />
-        </form>
+          <TaskEditDescription listId={listId} taskId={id} description={description} />
+          <TaskEditDueDate listId={listId} taskId={id} dueDate={dueDate} />
+        </div>
       </ModalWrapper>
     </Dimmer>
   );
