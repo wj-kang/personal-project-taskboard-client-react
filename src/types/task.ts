@@ -2,7 +2,7 @@ export interface TaskDTO {
   id: string;
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
   label: string[];
   listId: string;
 

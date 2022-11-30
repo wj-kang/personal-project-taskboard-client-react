@@ -31,13 +31,13 @@ export const boardListSlice = createSlice({
       state.lists.push(action.payload);
     },
     //
-    updateListTitle: (state, action: PayloadAction<TaskListDetailDTO>) => {
+    updateListTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
       const { id, title } = action.payload;
       state.lists.forEach((el) => (el.id === id ? (el.title = title) : null));
     },
     //
-    removeList: (state, action: PayloadAction<{ id: string }>) => {
-      state.lists.filter((el) => el.id !== action.payload.id);
+    removeList: (state, action: PayloadAction<string>) => {
+      state.lists = state.lists.filter((el) => el.id !== action.payload);
     },
     // ** Tasks **
     addTask: (state, action: PayloadAction<{ listIndex: number; data: TaskDTO }>) => {
@@ -64,10 +64,43 @@ export const boardListSlice = createSlice({
         ...destTasks.slice(dest.index),
       ];
     },
+    //
+    updateTaskTitle: (state, action: PayloadAction<{ id: string; title: string; listId: string }>) => {
+      const { id, title, listId } = action.payload;
+      const task = state.lists.find((l) => l.id === listId)?.tasks.find((t) => t.id === id);
+      if (task) {
+        task.title = title;
+      }
+    },
+
+    updateTaskDesc: (state, action: PayloadAction<{ listId: string; id: string; description: string }>) => {
+      const { id, listId, description } = action.payload;
+      const task = state.lists.find((l) => l.id === listId)?.tasks.find((t) => t.id === id);
+      if (task) {
+        task.description = description;
+      }
+    },
+    //
+    updateTaskDueDate: (state, action: PayloadAction<{ listId: string; id: string; dueDate: string }>) => {
+      const { id, listId, dueDate } = action.payload;
+      const task = state.lists.find((l) => l.id === listId)?.tasks.find((t) => t.id === id);
+      if (task) {
+        task.dueDate = dueDate;
+      }
+    },
   },
 });
 
-export const { setBoard, addList, updateListTitle, removeList, taskDrag } = boardListSlice.actions;
+export const {
+  setBoard,
+  addList,
+  updateListTitle,
+  removeList,
+  taskDrag,
+  updateTaskTitle,
+  updateTaskDesc,
+  updateTaskDueDate,
+} = boardListSlice.actions;
 export default boardListSlice.reducer;
 
 function reorderArray(array: any[], idx: number, targetIdx: number): any[] {
