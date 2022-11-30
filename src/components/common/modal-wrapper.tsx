@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
+import IconClose from '../icons/icon-close';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -9,7 +10,9 @@ interface ModalProps {
 function ModalWrapper({ children, handleClose }: ModalProps) {
   return (
     <ModalContainer>
-      <CloseButton onClick={handleClose}>{`x`}</CloseButton>
+      <ButtonContainer onClick={handleClose}>
+        <IconClose />
+      </ButtonContainer>
       {children}
     </ModalContainer>
   );
@@ -25,14 +28,15 @@ const ModalContainer = styled.div`
   overflow: hidden;
 `;
 
-const CloseButton = styled.button`
+const ButtonContainer = styled.button`
+  width: 3rem;
   outline: none;
   border: none;
   background: none;
   font: inherit;
 
   position: absolute;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   top: 0;
   right: 0;
   cursor: pointer;
