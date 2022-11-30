@@ -13,6 +13,7 @@ interface TaskEditProps {
   data: TaskDTO;
   handleClose: () => void;
 }
+
 function TaskEdit({ data, handleClose }: TaskEditProps) {
   const { id, title, description, dueDate, listId } = data;
   const [titleInput, setTitleInput] = useState<string>('');
@@ -34,7 +35,7 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
   }
 
   return (
-    <Dimmer>
+    <Dimmer handleClose={handleClose}>
       <ModalWrapper handleClose={handleClose}>
         <div className={styles.form}>
           <input
