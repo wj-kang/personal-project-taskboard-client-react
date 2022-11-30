@@ -1,11 +1,9 @@
 .container {
   background: rgba(255, 255, 255, 1);
   margin-top: 0.5rem;
-  padding: 0.3rem 0.5rem;
+  /* padding: 0.3rem 0.5rem; */
   border-radius: 0.25rem;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
-
-  cursor: pointer;
 
   overflow: hidden;
 }
@@ -14,15 +12,22 @@
   background: rgba(200, 200, 200, 0.3);
 }
 
-.container:hover .task_title span {
-  opacity: 0.3;
+.container:hover .task_title button {
+  opacity: 0.2;
 }
 
 .task_title {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
 }
 
-.task_title span {
+.task_title button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 2rem;
   opacity: 0;
 }

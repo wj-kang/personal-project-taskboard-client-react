@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { TaskDTO } from '../../../types/task';
+import IconPencil from '../../icons/icon-pencil';
 import TaskEdit from './task-edit';
 import styles from './task.module.css';
 
@@ -31,7 +32,9 @@ function Task({ data, taskIndex }: TaskProps) {
             {/* <TaskLabels /> */}
             <div className={styles.task_title}>
               <div>{data.title}</div>
-              <span>{'Edit'}</span>
+              <button>
+                <IconPencil />
+              </button>
             </div>
           </li>
         )}
