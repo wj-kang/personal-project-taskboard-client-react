@@ -14,6 +14,7 @@
 }
 
 .list_add {
+  flex-shrink: 0;
   font-size: inherit;
   text-align: start;
   display: inline;

@@ -2,6 +2,7 @@ import { TaskDTO } from './../../types/task';
 import { BoardDetailDTO } from './../../types/board';
 import { AxiosResponse } from 'axios';
 import { boardAPI, listAPI, taskAPI } from '../../utils/axios';
+import { DraggableLocation } from 'react-beautiful-dnd';
 
 export async function fetchBoardById(boardId: string): Promise<BoardDetailDTO> {
   const res: AxiosResponse<BoardDetailDTO> = await boardAPI().get(`/${boardId}`);
@@ -55,4 +56,22 @@ export async function updateTaskDueDateAPI(listId: string, taskId: string, dueDa
   const res: AxiosResponse<TaskDTO> = await taskAPI().put(`/`, { listId, id: taskId, dueDate });
 
   return res.data;
+}
+
+export async function updateTaskOrderAPI(
+  boardId: string,
+  src: DraggableLocation,
+  dest: DraggableLocation
+): Promise<void> {
+  const { droppableId: srcListIdx, index: srcTaskIdx } = src;
+  const { droppableId: destListIdx, index: destTaskIdx } = dest;
+  const data = {
+    boardId,
+    srcListIdx: Number(srcListIdx),
+    srcTaskIdx,
+    destListIdx: Number(destListIdx),
+    destTaskIdx,
+  };
+
+  await listAPI().put(`/task-drag`, data);
 }

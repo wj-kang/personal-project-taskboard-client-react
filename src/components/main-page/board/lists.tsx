@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { addNewListAPI } from '../../../features/board/boardAPI';
+import { addNewListAPI, updateTaskOrderAPI } from '../../../features/board/boardAPI';
 import ListCard from './list-card';
 import styles from './lists.module.css';
 
@@ -14,7 +14,7 @@ function Lists() {
     dispatch({ type: 'board/addList', payload: res });
   }
 
-  function handleDragEnd(result: DropResult) {
+  async function handleDragEnd(result: DropResult) {
     const { source, destination } = result;
     if (!destination) {
       return;
@@ -24,8 +24,13 @@ function Lists() {
       // TODO
       return;
     }
-    // TODO: api call
-    dispatch({ type: 'board/taskDrag', payload: { src: source, dest: destination } });
+
+    try {
+      dispatch({ type: 'board/taskDrag', payload: { src: source, dest: destination } });
+      await updateTaskOrderAPI(boardId, source, destination);
+    } catch (e: any) {
+      alert(e.toString());
+    }
   }
 
   return (
