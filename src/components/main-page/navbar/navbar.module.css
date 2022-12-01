@@ -16,4 +16,21 @@
 }
 
 .btns {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btns button {
+  background: none;
+  outline: none;
+  border: none;
+  color: #f5f5f5;
+  cursor: pointer;
+  width: 2.5rem;
+  color: #f5f5f5;
+}
+
+.btns button:hover {
+  opacity: 0.7;
 }
