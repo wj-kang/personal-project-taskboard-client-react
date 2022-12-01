@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { addNewTaskAPI, deleteTaskListAPI, updateListTitleAPI } from '../../../features/board/boardAPI';
 import { TaskDTO } from '../../../types/task';
+import IconClose from '../../icons/icon-close';
+import IconEllipsis from '../../icons/icon-ellipsis';
+import IconLeftArrow from '../../icons/icon-left-arrow';
+import IconRightArrow from '../../icons/icon-right-arrow';
 import IconTrash from '../../icons/icon-trash';
 import styles from './list-card.module.css';
 import Tasks from './tasks';
@@ -13,7 +17,7 @@ interface ListCardProps {
 function ListCard({ index }: ListCardProps) {
   const dispatch = useAppDispatch();
   const { id: listId, title } = useAppSelector((state) => state.board.lists[index]);
-
+  const [editMode, setEditMode] = useState<boolean>(false);
   const [titleInput, setTitleInput] = useState<string>('');
   const [addMode, setAddMode] = useState<boolean>(false);
   const [addCardInput, setAddCardInput] = useState<string>('');
@@ -21,6 +25,11 @@ function ListCard({ index }: ListCardProps) {
   const addCardInputRef: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
   useEffect(() => setTitleInput(title), [title]);
+
+  function toggleEditMode(): void {
+    setEditMode((prev) => !prev);
+    setAddMode(false);
+  }
 
   function toggleAddMode(): void {
     setAddMode((prev) => !prev);
@@ -66,8 +75,17 @@ function ListCard({ index }: ListCardProps) {
     }
   }
 
+  async function handleMoveList(dir: 'LEFT' | 'RIGHT') {
+    if (dir === 'LEFT') {
+      dispatch({ type: 'board/moveListToLeft', payload: index });
+    } else {
+      dispatch({ type: 'board/moveListToRight', payload: index });
+    }
+  }
+
   return (
     <li className={styles.list}>
+      <div className={`${styles.list_dimmer} ${editMode && styles.editmode}`} onClick={toggleEditMode}></div>
       <div className={styles.list_header}>
         <input
           className={styles.title_input}
@@ -82,9 +100,30 @@ function ListCard({ index }: ListCardProps) {
           }}
           spellCheck="false"
         />
-        <button className={styles.list_header_btn} onClick={handleClickDeleteList}>
-          <IconTrash />
-        </button>
+        {editMode ? (
+          <div className={`${styles.list_header_btns} ${editMode && styles.editmode}`}>
+            <button className={styles.list_header_btn} onClick={handleClickDeleteList}>
+              <IconTrash />
+            </button>
+            <button className={styles.list_header_btn} onClick={() => handleMoveList('LEFT')}>
+              <IconLeftArrow />
+            </button>{' '}
+            <button className={styles.list_header_btn} onClick={() => handleMoveList('RIGHT')}>
+              <IconRightArrow />
+            </button>
+            <button className={styles.list_header_btn} onClick={toggleEditMode}>
+              <IconClose />
+            </button>
+          </div>
+        ) : (
+          <div className={styles.list_header_btns}>
+            <button className={styles.list_header_btn} onClick={toggleEditMode}>
+              {/* <IconTrash /> */}
+              <IconEllipsis />
+            </button>
+          </div>
+        )}
+
         {/* TODO */}
       </div>
 

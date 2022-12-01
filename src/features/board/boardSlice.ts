@@ -39,6 +39,35 @@ export const boardListSlice = createSlice({
     removeList: (state, action: PayloadAction<string>) => {
       state.lists = state.lists.filter((el) => el.id !== action.payload);
     },
+    //
+    moveListToLeft: (state, action: PayloadAction<number>) => {
+      let lists = state.lists;
+      const idx = action.payload;
+      if (idx < 0 || idx >= lists.length) {
+        return;
+      }
+      const curr = lists[idx];
+      if (idx === 0) {
+        state.lists = [...lists.slice(1), curr];
+      } else if (idx > 0) {
+        lists[idx] = lists[idx - 1];
+        lists[idx - 1] = curr;
+      }
+    },
+    moveListToRight: (state, action: PayloadAction<number>) => {
+      const lists = state.lists;
+      const idx = action.payload;
+      if (idx < 0 || idx >= lists.length) {
+        return;
+      }
+      const curr = lists[idx];
+      if (idx === lists.length - 1) {
+        state.lists = [curr, ...lists.slice(0, lists.length - 1)];
+      } else if (idx < lists.length - 1) {
+        lists[idx] = lists[idx + 1];
+        lists[idx + 1] = curr;
+      }
+    },
     // ** Tasks **
     addTask: (state, action: PayloadAction<{ listIndex: number; data: TaskDTO }>) => {
       const { listIndex, data } = action.payload;
@@ -95,6 +124,8 @@ export const {
   setBoard,
   addList,
   updateListTitle,
+  moveListToLeft,
+  moveListToRight,
   removeList,
   taskDrag,
   updateTaskTitle,
