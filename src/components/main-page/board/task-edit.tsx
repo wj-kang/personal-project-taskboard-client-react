@@ -45,7 +45,7 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
             onChange={(e) => setTitleInput(e.target.value)}
             onBlur={handleUpdateTaskTitle}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' || e.key === 'Escape') {
                 e.currentTarget.blur();
               }
             }}

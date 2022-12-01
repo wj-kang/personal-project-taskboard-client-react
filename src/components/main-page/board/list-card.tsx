@@ -1,10 +1,8 @@
-import { AxiosResponse } from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { addNewTaskAPI } from '../../../features/board/boardAPI';
+import { addNewTaskAPI, deleteTaskListAPI, updateListTitleAPI } from '../../../features/board/boardAPI';
 import { TaskDTO } from '../../../types/task';
-import { TaskListDetailDTO } from '../../../types/taskList';
-import { listAPI } from '../../../utils/axios';
+import IconTrash from '../../icons/icon-trash';
 import styles from './list-card.module.css';
 import Tasks from './tasks';
 
@@ -15,17 +13,31 @@ interface ListCardProps {
 function ListCard({ index }: ListCardProps) {
   const dispatch = useAppDispatch();
   const { id: listId, title } = useAppSelector((state) => state.board.lists[index]);
+
   const [titleInput, setTitleInput] = useState<string>('');
+  const [addMode, setAddMode] = useState<boolean>(false);
+  const [addCardInput, setAddCardInput] = useState<string>('');
+
+  const addCardInputRef: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
   useEffect(() => setTitleInput(title), [title]);
 
+  function toggleAddMode(): void {
+    setAddMode((prev) => !prev);
+    setAddCardInput('');
+  }
+
+  useEffect(() => {
+    // addMode on => focus to the input element
+    if (addMode) {
+      addCardInputRef.current?.focus();
+    }
+  }, [addMode]);
+
   async function handleUpdateListTitle() {
     try {
-      const res: AxiosResponse<TaskListDetailDTO> = await listAPI().put('/', {
-        id: listId,
-        title: titleInput,
-      });
-      dispatch({ type: 'board/updateListTitle', payload: res.data });
+      dispatch({ type: 'board/updateListTitle', payload: { id: listId, title } });
+      await updateListTitleAPI(listId, titleInput);
     } catch (e: any) {
       alert(e.toString());
     }
@@ -33,8 +45,22 @@ function ListCard({ index }: ListCardProps) {
 
   async function handleAddNewTask() {
     try {
-      const data: TaskDTO = await addNewTaskAPI(listId);
+      const data: TaskDTO = await addNewTaskAPI(listId, addCardInput);
       dispatch({ type: 'board/addTask', payload: { listIndex: index, data } });
+    } catch (e: any) {
+      alert(e.toString());
+    } finally {
+      toggleAddMode();
+    }
+  }
+
+  async function handleClickDeleteList() {
+    try {
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm('Delete Card')) {
+        await deleteTaskListAPI(listId);
+        dispatch({ type: 'board/removeList', payload: listId });
+      }
     } catch (e: any) {
       alert(e.toString());
     }
@@ -50,20 +76,52 @@ function ListCard({ index }: ListCardProps) {
           onChange={(e) => setTitleInput(e.target.value)}
           onBlur={() => handleUpdateListTitle()}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' || e.key === 'Escape') {
               e.currentTarget.blur();
             }
           }}
           spellCheck="false"
         />
-        <button>{`>`}</button> {/* TODO */}
+        <button className={styles.list_header_btn} onClick={handleClickDeleteList}>
+          <IconTrash />
+        </button>
+        {/* TODO */}
       </div>
 
       <Tasks listIndex={index} />
 
-      <button className={styles.add_task_btn} onClick={handleAddNewTask}>
-        {'+ Add a task'}
-      </button>
+      {addMode ? (
+        <>
+          <input
+            ref={addCardInputRef}
+            className={styles.add_task_input}
+            type="text"
+            placeholder="Enter a title for this task..."
+            spellCheck="false"
+            value={addCardInput}
+            onChange={(e) => setAddCardInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleAddNewTask();
+              } else if (e.key === 'Escape') {
+                toggleAddMode();
+              }
+            }}
+          />
+          <div className={styles.add_task_input_btns}>
+            <button className={styles.btn_add} onClick={handleAddNewTask}>
+              Add Card
+            </button>
+            <button className={styles.btn_cancel} onClick={toggleAddMode}>
+              Cancel
+            </button>
+          </div>
+        </>
+      ) : (
+        <button className={styles.add_task_btn} onClick={toggleAddMode}>
+          {'+ Add a task'}
+        </button>
+      )}
     </li>
   );
 }

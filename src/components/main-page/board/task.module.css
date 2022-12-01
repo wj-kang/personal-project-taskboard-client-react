@@ -20,7 +20,9 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  padding: 0.3rem 0.5rem;
+  padding: 0rem 0.75rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
 }
 
 .task_title button {

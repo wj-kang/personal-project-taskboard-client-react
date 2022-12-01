@@ -25,7 +25,7 @@
 }
 
 .btns {
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   display: flex;
   gap: 0.5rem;
 }

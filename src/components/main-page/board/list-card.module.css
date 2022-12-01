@@ -12,16 +12,17 @@
   gap: 1rem;
 }
 
-.list_header button {
+.list_header_btn {
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
-  padding: 0.15rem 0.3rem;
+  width: 2rem;
+  opacity: 0.15;
 }
 
 .list_header button:hover {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .title_input {
@@ -57,12 +58,14 @@
 
 .add_task_btn {
   background: none;
-  border: none;
+  border: 2px solid #05669f00;
   outline: none;
   font: inherit;
 
   width: 100%;
-  padding: 0.3rem 0.5rem;
+  padding: 0 0.5rem;
+  height: 2.5rem;
+
   border-radius: 0.25rem;
   text-align: start;
   margin-top: 0.5rem;
@@ -73,4 +76,51 @@
 .add_task_btn:hover {
   background: rgb(220, 220, 220);
   color: #222222;
+}
+
+.add_task_input {
+  background: #ffffff;
+  border: 2px solid #05669f;
+
+  outline: none;
+  font: inherit;
+
+  width: 100%;
+  padding: 0 0.6rem;
+  height: 2.5rem;
+  border-radius: 0.25rem;
+  margin-top: 0.5rem;
+}
+.add_task_input::placeholder {
+  color: #aaaaaa;
+}
+
+.add_task_input_btns {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+.add_task_input_btns button {
+  border: none;
+  outline: none;
+  font: inherit;
+
+  height: 2rem;
+  border-radius: 0.25rem;
+  padding: 0 0.75rem;
+  cursor: pointer;
+}
+
+.add_task_input_btns button:hover {
+  opacity: 0.7;
+}
+
+.btn_add {
+  background: #0680c7;
+  color: #f5f5f5;
+}
+
+.btn_cancel {
+  color: #999999;
+  background: none;
 }

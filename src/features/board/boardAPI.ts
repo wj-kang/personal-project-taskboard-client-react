@@ -29,9 +29,8 @@ export async function updateListTitleAPI(listId: string, title: string): Promise
 //   return res.data;
 // }
 
-export async function addNewTaskAPI(listId: string): Promise<TaskDTO> {
-  const res: AxiosResponse<TaskDTO> = await taskAPI().post(`/`, { listId });
-
+export async function addNewTaskAPI(listId: string, taskTitle: string): Promise<TaskDTO> {
+  const res: AxiosResponse<TaskDTO> = await taskAPI().post(`/`, { listId, title: taskTitle });
   return res.data;
 }
 
