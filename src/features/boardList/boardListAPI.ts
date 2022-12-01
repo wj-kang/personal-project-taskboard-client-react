@@ -7,3 +7,7 @@ export async function addNewBoardAPI(): Promise<BoardBaseDTO> {
 
   return res.data;
 }
+
+export async function updateBoardOrderAPI(src: number, dest: number): Promise<void> {
+  await boardAPI().put('/board-drag', { src, dest });
+}

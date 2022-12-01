@@ -1,3 +1,4 @@
+import { DraggableLocation } from 'react-beautiful-dnd';
 import { BoardBaseDTO } from './../../types/board';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -20,9 +21,9 @@ export const boardListSlice = createSlice({
       state.forEach((el) => (el.id === id ? (el.title = title) : null));
     },
     //
-    updateOrder: (state, action: PayloadAction<{ currIdx: number; targetIdx: number }>) => {
-      const { currIdx, targetIdx } = action.payload;
-      reorderArray(state, currIdx, targetIdx);
+    boardListDrag: (state, action: PayloadAction<{ src: DraggableLocation; dest: DraggableLocation }>) => {
+      const { src, dest } = action.payload;
+      reorderArray(state, src.index, dest.index);
     },
     //
     remove: (state, action: PayloadAction<{ id: string }>) => {
@@ -31,7 +32,7 @@ export const boardListSlice = createSlice({
   },
 });
 
-export const { set, add, updateTitle, updateOrder, remove } = boardListSlice.actions;
+export const { set, add, updateTitle, boardListDrag, remove } = boardListSlice.actions;
 export default boardListSlice.reducer;
 
 function reorderArray(array: BoardBaseDTO[], idx: number, targetIdx: number): void {

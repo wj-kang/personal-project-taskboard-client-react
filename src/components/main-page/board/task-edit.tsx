@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/hooks';
 import { TaskDTO } from '../../../types/task';
@@ -16,10 +16,8 @@ interface TaskEditProps {
 
 function TaskEdit({ data, handleClose }: TaskEditProps) {
   const { id, title, description, dueDate, listId } = data;
-  const [titleInput, setTitleInput] = useState<string>('');
+  const [titleInput, setTitleInput] = useState<string>(title);
   const dispatch = useAppDispatch();
-
-  useEffect(() => setTitleInput(title), [title]);
 
   function handleUpdateTaskTitle() {
     try {

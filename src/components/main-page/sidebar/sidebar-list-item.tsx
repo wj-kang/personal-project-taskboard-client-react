@@ -1,3 +1,5 @@
+import { Draggable } from 'react-beautiful-dnd';
+
 import styles from './sidebar.module.css';
 
 interface SidebarListItemProps {
@@ -12,9 +14,20 @@ function SidebarListItem(props: SidebarListItemProps) {
   const { idx, id, title, handleClick, isSelected } = props;
 
   return (
-    <li className={isSelected ? styles.selected : ''} onClick={() => handleClick(idx)} data-boardid={id}>
-      {title}
-    </li>
+    <Draggable key={id} draggableId={id} index={idx}>
+      {(provided) => (
+        <li
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          className={isSelected ? styles.selected : ''}
+          onClick={() => handleClick(idx)}
+          data-boardid={id}
+        >
+          {title}
+        </li>
+      )}
+    </Draggable>
   );
 }
 
