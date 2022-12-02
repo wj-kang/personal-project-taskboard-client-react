@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { UserLoginDTO } from '../../types/user';
-import { userAPI } from '../../utils/axios';
+import { getTokenFromStorage, userAPI } from '../../utils/axios';
 
 export async function userLoginAPI(email: string, password: string): Promise<UserLoginDTO> {
   const res: AxiosResponse<UserLoginDTO> = await userAPI().post('/login', {
@@ -37,4 +37,31 @@ export async function userGetAPI(token: string): Promise<UserLoginDTO> {
   });
 
   return res.data;
+}
+
+export async function deleteUserAPI(): Promise<void> {
+  await userAPI().delete(`/`, {
+    headers: {
+      Authorization: `Bearer ${getTokenFromStorage()}`,
+    },
+    withCredentials: true,
+  });
+  return;
+}
+
+export async function changeUserPasswordAPI(currPassword: string, newPassword: string): Promise<void> {
+  await userAPI().put(
+    `/password`,
+    {
+      currPassword,
+      newPassword,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${getTokenFromStorage()}`,
+      },
+      withCredentials: true,
+    }
+  );
+  return;
 }

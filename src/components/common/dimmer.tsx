@@ -13,7 +13,7 @@ function Dimmer({ children, handleClose }: DimmerProps) {
     }
   }
 
-  return <Background onClick={handleClickBackground}>{children}</Background>;
+  return <Background onMouseDown={handleClickBackground}>{children}</Background>;
 }
 
 const Background = styled.div`

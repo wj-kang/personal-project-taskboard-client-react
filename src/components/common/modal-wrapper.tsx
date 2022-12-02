@@ -20,7 +20,7 @@ function ModalWrapper({ children, handleClose }: ModalProps) {
 
 const ModalContainer = styled.div`
   position: relative;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
   background: #f5f5f5;
   border-radius: 0.25rem;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.02);

@@ -1,0 +1,100 @@
+.guest_blocking {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.title {
+  min-width: 25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.title div:first-child {
+  width: 2rem;
+  padding-top: 0.3rem;
+}
+
+.title div:nth-child(2) {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.form {
+}
+
+.form h3 {
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.form_inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form_inputs input {
+  outline: none;
+  border: 2px solid #e5e5e5;
+  border-radius: 0.25rem;
+  padding: 0.75rem 0.5rem;
+  font: inherit;
+}
+
+.form_inputs input:focus {
+  border-color: #05669f;
+}
+
+.form button {
+  outline: none;
+  border: none;
+  border-radius: 0.25rem;
+  background: #dddddd;
+  color: #aaaaaa;
+  width: 100%;
+  padding: 1rem 0;
+  margin-top: 0.5rem;
+  transition: all 200ms ease-in;
+  font: inherit;
+}
+
+.form button.isOn:hover {
+  opacity: 0.7;
+}
+
+.form button.isOn {
+  background: #05669f;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.delete {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.delete_btn {
+  outline: none;
+  border: none;
+  background: none;
+  color: brown;
+  font: inherit;
+  cursor: pointer;
+}
+
+.delete_btn:hover {
+  opacity: 0.7;
+}
