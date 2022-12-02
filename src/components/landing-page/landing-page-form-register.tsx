@@ -31,67 +31,72 @@ function LandingPageFormRegister() {
   }
 
   return (
-    <form onSubmit={handleRegister} className={styles.container}>
-      <h1>Register</h1>
-      <TextField
-        {...emailInput}
-        error={emailInput.value.length > 0 && !emailInput.isValid}
-        name="email"
-        variant="outlined"
-        label="Email"
-        required
-        fullWidth
-      />
+    <>
+      <button className={styles.back_btn} onClick={() => navigate('/', { replace: true })}>
+        {'< Back'}
+      </button>
+      <form onSubmit={handleRegister} className={styles.container}>
+        <h1>Register</h1>
+        <TextField
+          {...emailInput}
+          error={emailInput.value.length > 0 && !emailInput.isValid}
+          name="email"
+          variant="outlined"
+          label="Email"
+          required
+          fullWidth
+        />
 
-      <TextField
-        {...passwordInput}
-        error={passwordInput.value.length > 0 && !passwordInput.isValid}
-        name="password"
-        type="password"
-        variant="outlined"
-        label="Password"
-        required
-        fullWidth
-        sx={{ marginTop: '2rem' }}
-      />
+        <TextField
+          {...passwordInput}
+          error={passwordInput.value.length > 0 && !passwordInput.isValid}
+          name="password"
+          type="password"
+          variant="outlined"
+          label="Password"
+          required
+          fullWidth
+          sx={{ marginTop: '2rem' }}
+        />
 
-      <TextField
-        {...passwordCheckInput}
-        error={passwordCheckInput.value.length > 0 && !passwordCheckInput.isValid}
-        variant="outlined"
-        label="Confirm Password"
-        type="password"
-        helperText="at least 8 characters"
-        required
-        fullWidth
-        sx={{ marginTop: '0.75rem' }}
-      />
+        <TextField
+          {...passwordCheckInput}
+          error={passwordCheckInput.value.length > 0 && !passwordCheckInput.isValid}
+          variant="outlined"
+          label="Confirm Password"
+          type="password"
+          helperText="at least 8 characters"
+          required
+          fullWidth
+          sx={{ marginTop: '0.75rem' }}
+        />
 
-      <Typography variant="body1" sx={{ color: 'red', marginTop: '1rem' }}>
-        {error.length > 0 && error}
-      </Typography>
+        <Typography variant="body1" sx={{ color: 'red', marginTop: '1rem' }}>
+          {error.length > 0 && error}
+        </Typography>
 
-      <Button
-        disabled={!emailInput.isValid || !passwordInput.isValid || !passwordCheckInput.isValid}
-        type="submit"
-        variant="contained"
-        size="large"
-        fullWidth
-        sx={{ padding: '1rem', marginTop: '1.5rem' }}
-      >
-        Register
-      </Button>
+        <Button
+          disabled={!emailInput.isValid || !passwordInput.isValid || !passwordCheckInput.isValid}
+          type="submit"
+          variant="contained"
+          size="large"
+          fullWidth
+          sx={{ padding: '1rem', marginTop: '1.5rem' }}
+        >
+          Register
+        </Button>
 
-      <Button
-        onClick={() => navigate('/login', { replace: true })}
-        variant="text"
-        size="small"
-        sx={{ marginTop: '1rem', textTransform: 'none' }}
-      >
-        Already Registered? Login
-      </Button>
-      <div className={styles.btns}></div>
-    </form>
+        <Button
+          onClick={() => navigate('/login', { replace: true })}
+          variant="text"
+          size="small"
+          sx={{ marginTop: '1rem', textTransform: 'none' }}
+        >
+          Already Registered? Login
+        </Button>
+        <div className={styles.btns}></div>
+      </form>
+    </>
   );
 }
 

@@ -24,7 +24,8 @@ function LandingPageIndex() {
 
   return (
     <div className={styles.container}>
-      <h3>Organize your tasks</h3>
+      <h1 className={styles.title}>📋 TaskBoard</h1>
+
       <div className={styles.btns}>
         <div className={styles.btns__row1}>
           <Button onClick={() => navigate('/login')} variant="contained">
@@ -35,7 +36,7 @@ function LandingPageIndex() {
           </Button>
         </div>
         <div className={styles.btns__row2}>
-          <Button onClick={handleGuestEnter} variant="text">
+          <Button onClick={handleGuestEnter} variant="text" color="inherit">
             Guest Enter
           </Button>
         </div>
