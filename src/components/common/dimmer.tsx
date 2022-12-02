@@ -3,10 +3,11 @@ import React from 'react';
 
 interface DimmerProps {
   children: React.ReactNode;
-  handleClose: () => void;
+  handleClose?: () => void;
 }
 function Dimmer({ children, handleClose }: DimmerProps) {
   function handleClickBackground(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (!handleClose) return;
     // prevent excution from event bubbling
     if (e.currentTarget === e.target) {
       handleClose();
@@ -22,8 +23,8 @@ const Background = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
 
   display: flex;
   justify-content: center;

@@ -10,11 +10,11 @@ import styles from './main-page.module.css';
 
 function MainPage() {
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.id);
+  const userId = useAppSelector((state) => state.user.id);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (user) {
+    if (userId) {
       return;
     }
     (async function () {
