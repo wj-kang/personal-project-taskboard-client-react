@@ -11,6 +11,7 @@ function LandingPageIndex() {
 
   async function handleGuestEnter() {
     try {
+      dispatch({ type: 'loader/on' });
       const { id, email, type, boards } = await userGuestAPI();
       dispatch({ type: 'user/login', payload: { id, email, type } });
       dispatch({ type: 'boardlist/set', payload: boards });
@@ -19,6 +20,8 @@ function LandingPageIndex() {
       //
     } catch (e: any) {
       alert(e.toString());
+    } finally {
+      dispatch({ type: 'loader/off' });
     }
   }
 

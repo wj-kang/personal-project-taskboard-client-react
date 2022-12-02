@@ -10,8 +10,15 @@ function Lists() {
   const { id: boardId, lists } = useAppSelector((state) => state.board);
 
   async function handleAddNewList() {
-    const res = await addNewListAPI(boardId);
-    dispatch({ type: 'board/addList', payload: res });
+    try {
+      dispatch({ type: 'loader/on' });
+      const res = await addNewListAPI(boardId);
+      dispatch({ type: 'board/addList', payload: res });
+    } catch (e: any) {
+      alert(e.toString());
+    } finally {
+      dispatch({ type: 'loader/off' });
+    }
   }
 
   async function handleDragEnd(result: DropResult) {

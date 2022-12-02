@@ -1,6 +1,7 @@
 import { Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../app/hooks';
 import { userRegisterAPI } from '../../features/user/userAPI';
 import { useInput } from '../../utils/customHooks';
 import { emailValidator, passwordValidator } from '../../utils/validators';
@@ -8,6 +9,7 @@ import styles from './landing-page-form.module.css';
 
 function LandingPageFormRegister() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const emailInput = useInput('', emailValidator);
   const passwordInput = useInput('', passwordValidator);
   const passwordCheckInput = useInput('', (v) => passwordInput.value === v);
@@ -16,6 +18,7 @@ function LandingPageFormRegister() {
   async function handleRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      dispatch({ type: 'loader/on' });
       await userRegisterAPI(emailInput.value, passwordInput.value);
 
       alert(`New account has been created 🎉\nPlease login with your account.`);
@@ -27,6 +30,8 @@ function LandingPageFormRegister() {
       } else {
         setError(e.toString());
       }
+    } finally {
+      dispatch({ type: 'loader/off' });
     }
   }
 

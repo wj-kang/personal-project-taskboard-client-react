@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { changeUserPasswordAPI, deleteUserAPI } from '../../../features/user/userAPI';
 import { useInput } from '../../../utils/customHooks';
 import { passwordValidator } from '../../../utils/validators';
@@ -15,6 +15,7 @@ interface UserEditModalProps {
 
 function UserEditModal({ handleClose }: UserEditModalProps) {
   const { email, type } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const currPwdInput = useInput('', passwordValidator);
   const newPwdInput = useInput('', passwordValidator);
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function UserEditModal({ handleClose }: UserEditModalProps) {
   async function handleChangePassword(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      dispatch({ type: 'loader/on' });
       await changeUserPasswordAPI(currPwdInput.value, newPwdInput.value);
       alert('Password Updated');
     } catch (e: any) {
@@ -32,11 +34,13 @@ function UserEditModal({ handleClose }: UserEditModalProps) {
       }
     } finally {
       handleClose();
+      dispatch({ type: 'loader/off' });
     }
   }
 
   async function handleDeleteAccount() {
     try {
+      dispatch({ type: 'loader/on' });
       // eslint-disable-next-line no-restricted-globals
       if (confirm('Delete Account')) {
         await deleteUserAPI();
@@ -48,6 +52,8 @@ function UserEditModal({ handleClose }: UserEditModalProps) {
       } else {
         alert(e.toString());
       }
+    } finally {
+      dispatch({ type: 'loader/off' });
     }
   }
 

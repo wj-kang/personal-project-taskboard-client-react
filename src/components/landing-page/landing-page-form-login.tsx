@@ -17,6 +17,7 @@ function LandingPageFormLogin() {
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      dispatch({ type: 'loader/on' });
       const { id, email, type, boards } = await userLoginAPI(emailInput.value, passwordInput.value);
       dispatch({ type: 'user/login', payload: { id, email, type } });
       dispatch({ type: 'boardlist/set', payload: boards });
@@ -29,6 +30,8 @@ function LandingPageFormLogin() {
       } else {
         setError(e.toString());
       }
+    } finally {
+      dispatch({ type: 'loader/off' });
     }
   }
 

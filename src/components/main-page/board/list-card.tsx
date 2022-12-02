@@ -59,12 +59,14 @@ function ListCard({ index }: ListCardProps) {
 
   async function handleAddNewTask() {
     try {
+      dispatch({ type: 'loader/on' });
       const data: TaskDTO = await addNewTaskAPI(listId, addCardInput);
       dispatch({ type: 'board/addTask', payload: { listIndex: index, data } });
     } catch (e: any) {
       alert(e.toString());
     } finally {
       toggleAddMode();
+      dispatch({ type: 'loader/off' });
     }
   }
 

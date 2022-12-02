@@ -27,8 +27,15 @@ function Sidebar() {
       return;
     }
     (async function () {
-      const data: BoardDetailDTO = await fetchBoardById(boards[selectedBoardIdx].id);
-      dispatch({ type: 'board/setBoard', payload: data });
+      try {
+        dispatch({ type: 'loader/on' });
+        const data: BoardDetailDTO = await fetchBoardById(boards[selectedBoardIdx].id);
+        dispatch({ type: 'board/setBoard', payload: data });
+      } catch (e: any) {
+        alert(e.toString());
+      } finally {
+        dispatch({ type: 'loader/off' });
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boards, selectedBoardIdx]);

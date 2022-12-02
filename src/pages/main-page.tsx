@@ -14,11 +14,13 @@ function MainPage() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    // in case of refreshing,
     if (userId) {
       return;
     }
     (async function () {
       try {
+        dispatch({ type: 'loader/on' });
         const { id, email, type, boards } = await userGetAPI(getTokenFromStorage());
         dispatch({ type: 'user/login', payload: { id, email, type } });
         dispatch({ type: 'boardlist/set', payload: boards });
@@ -26,6 +28,8 @@ function MainPage() {
       } catch (e: any) {
         // 403 => send client to init page
         navigate('/', { replace: true });
+      } finally {
+        dispatch({ type: 'loader/off' });
       }
     })();
   }, []);
