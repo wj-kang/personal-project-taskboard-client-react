@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { addNewTaskAPI, deleteTaskListAPI, updateListTitleAPI } from '../../../features/board/boardAPI';
+import {
+  addNewTaskAPI,
+  deleteTaskListAPI,
+  updateListOrderAPI,
+  updateListTitleAPI,
+} from '../../../features/board/boardAPI';
 import { TaskDTO } from '../../../types/task';
-import IconClose from '../../icons/icon-close';
+import IconCheck from '../../icons/icon-check';
 import IconEllipsis from '../../icons/icon-ellipsis';
 import IconLeftArrow from '../../icons/icon-left-arrow';
 import IconRightArrow from '../../icons/icon-right-arrow';
@@ -16,7 +21,7 @@ interface ListCardProps {
 
 function ListCard({ index }: ListCardProps) {
   const dispatch = useAppDispatch();
-  const { id: listId, title } = useAppSelector((state) => state.board.lists[index]);
+  const { id: listId, title, boardId } = useAppSelector((state) => state.board.lists[index]);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [titleInput, setTitleInput] = useState<string>('');
   const [addMode, setAddMode] = useState<boolean>(false);
@@ -75,11 +80,16 @@ function ListCard({ index }: ListCardProps) {
     }
   }
 
-  async function handleMoveList(dir: 'LEFT' | 'RIGHT') {
-    if (dir === 'LEFT') {
-      dispatch({ type: 'board/moveListToLeft', payload: index });
-    } else {
-      dispatch({ type: 'board/moveListToRight', payload: index });
+  async function handleMoveList(isLeft: boolean) {
+    try {
+      if (isLeft) {
+        dispatch({ type: 'board/moveListToLeft', payload: index });
+      } else {
+        dispatch({ type: 'board/moveListToRight', payload: index });
+      }
+      await updateListOrderAPI(boardId, index, isLeft);
+    } catch (e: any) {
+      alert(e.toString());
     }
   }
 
@@ -105,14 +115,14 @@ function ListCard({ index }: ListCardProps) {
             <button className={styles.list_header_btn} onClick={handleClickDeleteList}>
               <IconTrash />
             </button>
-            <button className={styles.list_header_btn} onClick={() => handleMoveList('LEFT')}>
+            <button className={styles.list_header_btn} onClick={() => handleMoveList(true)}>
               <IconLeftArrow />
             </button>{' '}
-            <button className={styles.list_header_btn} onClick={() => handleMoveList('RIGHT')}>
+            <button className={styles.list_header_btn} onClick={() => handleMoveList(false)}>
               <IconRightArrow />
             </button>
             <button className={styles.list_header_btn} onClick={toggleEditMode}>
-              <IconClose />
+              <IconCheck />
             </button>
           </div>
         ) : (

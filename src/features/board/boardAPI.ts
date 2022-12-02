@@ -23,11 +23,9 @@ export async function updateListTitleAPI(listId: string, title: string): Promise
   });
 }
 
-// export async function updateListOrderAPI(boardId: string, sourceIdx: number, destIdx: number): Promise<BoardDetailDTO> {
-//   const res: AxiosResponse<BoardDetailDTO> = await boardAPI().put(`/`, { id: boardId, lists });
-
-//   return res.data;
-// }
+export async function updateListOrderAPI(boardId: string, index: number, isLeft: boolean): Promise<void> {
+  await boardAPI().put('/lists-order', { boardId, index, left: isLeft });
+}
 
 export async function addNewTaskAPI(listId: string, taskTitle: string): Promise<TaskDTO> {
   const res: AxiosResponse<TaskDTO> = await taskAPI().post(`/`, { listId, title: taskTitle });
