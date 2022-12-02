@@ -13,8 +13,15 @@ function Sidebar() {
   const dispatch = useAppDispatch();
 
   async function handleAddNewBoard(): Promise<void> {
-    const data: BoardBaseDTO = await addNewBoardAPI();
-    dispatch({ type: 'boardlist/add', payload: data });
+    try {
+      dispatch({ type: 'loader/on' });
+      const data: BoardBaseDTO = await addNewBoardAPI();
+      dispatch({ type: 'boardlist/add', payload: data });
+    } catch (e: any) {
+      alert(e.toString());
+    } finally {
+      dispatch({ type: 'loader/off' });
+    }
   }
 
   function handleSelectBoard(boardIdx: number): void {
