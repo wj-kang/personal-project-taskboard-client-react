@@ -55,6 +55,10 @@ export async function updateTaskDueDateAPI(listId: string, taskId: string, dueDa
   return res.data;
 }
 
+export async function deleteTaskAPI(taskId: string): Promise<void> {
+  await taskAPI().delete(`/`, { data: { id: taskId } });
+}
+
 export async function updateTaskOrderAPI(
   boardId: string,
   src: DraggableLocation,

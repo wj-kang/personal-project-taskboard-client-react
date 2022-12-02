@@ -86,6 +86,7 @@ export const boardListSlice = createSlice({
       const srcTasks = state.lists[Number(src.droppableId)].tasks;
       const destTasks = state.lists[Number(dest.droppableId)].tasks;
       const taskToMove = srcTasks[src.index];
+      taskToMove.listId = state.lists[Number(dest.droppableId)].id;
       state.lists[Number(src.droppableId)].tasks = srcTasks.filter((t, idx) => idx !== src.index);
       state.lists[Number(dest.droppableId)].tasks = [
         ...destTasks.slice(0, dest.index),
@@ -117,6 +118,15 @@ export const boardListSlice = createSlice({
         task.dueDate = dueDate;
       }
     },
+    //
+    deleteTask: (state, action: PayloadAction<{ listId: string; id: string }>) => {
+      const { listId, id } = action.payload;
+      state.lists.forEach((el) => {
+        if (el.id === listId) {
+          el.tasks = el.tasks.filter((t) => t.id !== id);
+        }
+      });
+    },
   },
 });
 
@@ -131,6 +141,7 @@ export const {
   updateTaskTitle,
   updateTaskDesc,
   updateTaskDueDate,
+  deleteTask,
 } = boardListSlice.actions;
 export default boardListSlice.reducer;
 

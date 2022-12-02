@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../../app/hooks';
+import { deleteTaskAPI, deleteTaskListAPI } from '../../../features/board/boardAPI';
 import { TaskDTO } from '../../../types/task';
 import { taskAPI } from '../../../utils/axios';
 import Dimmer from '../../common/dimmer';
@@ -19,16 +20,29 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
   const [titleInput, setTitleInput] = useState<string>(title);
   const dispatch = useAppDispatch();
 
-  function handleUpdateTaskTitle() {
+  async function handleUpdateTaskTitle() {
     try {
       dispatch({ type: 'board/updateTaskTitle', payload: { id, title: titleInput, listId } });
-      taskAPI().put('/', {
+      await taskAPI().put('/', {
         id,
         title: titleInput,
         listId,
       });
     } catch (e: any) {
       alert(e.toString());
+    }
+  }
+
+  async function handleDeleteTask() {
+    try {
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm('Delete task')) {
+        dispatch({ type: 'board/deleteTask', payload: { id, listId } });
+        await deleteTaskAPI(id);
+      }
+    } catch (e: any) {
+      alert(e.toString());
+      window.location.reload();
     }
   }
 
@@ -51,6 +65,9 @@ function TaskEdit({ data, handleClose }: TaskEditProps) {
           />
           <TaskEditDescription listId={listId} taskId={id} description={description} />
           <TaskEditDueDate listId={listId} taskId={id} dueDate={dueDate} />
+          <button className={styles.delete_btn} onClick={handleDeleteTask}>
+            Delete
+          </button>
         </div>
       </ModalWrapper>
     </Dimmer>
