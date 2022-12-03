@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# **📋 TaskBoard**</BR>**https://taskboard.wonjunkang.com**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+### Task management web application with a Kanban board.
 
-## Available Scripts
+</br>
 
-In the project directory, you can run:
+# **👨🏻‍💻 About**
 
-### `npm start`
+### This is a personal project to practice and improve my web development skills.</br>TaskBoard is a web application that allows users to create boards and manage tasks.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+</br>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### **Client** [[Repo]](https://github.com/wj-kang/personal-project-taskboard-client-react) **/**
 
-### `npm test`
+- Developed with **`TypeScript`**, **`React`**, and **`Redux`**.
+- Implemented **`Drag&Drop`** functionality using `react-beatiful-dnd` library.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### **Server** [[Repo]](https://github.com/wj-kang/personal-project-taskboard-server-springboot) **/**
 
-### `npm run build`
+- Developed **`Spring Boot`** web application that handles HTTP requests with REST APIs.
+- Implemented **`JWT`**-based user authentication.
+- Utilized **`MongoDB`** to store data.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Deployment /**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Used the AWS **`S3 Static-hosting`**, **`CloudFront`** for the client app.
+- Used the PaaS **[`Render`](https://render.com/)** to deploy the Spring-boot server.
+- Used the **[`MongoDB Atlas`](https://www.mongodb.com/atlas/database)** for a MongoDB cloud instance.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</br>
 
-### `npm run eject`
+# **📚 Stacks**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### **Front-end /**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![](https://img.shields.io/badge/TYPESCRIPT-1c6bb4?style=for-the-badge&logo=typescript)
+![](https://img.shields.io/badge/react-40c4ff?style=for-the-badge&logo=react)
+![](https://img.shields.io/badge/REDUX-593D87?style=for-the-badge&logo=redux)
+![](https://img.shields.io/badge/REDUX--TOOLKIT-593D87?style=for-the-badge)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### **Back-end /**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![](https://img.shields.io/badge/SPRING-Spring--Boot-008a55?style=for-the-badge&logo=node.js)
+![](https://img.shields.io/badge/MongoDB-40?style=for-the-badge&logo=mongodb)
+![](https://img.shields.io/badge/JAVA-ffecac?style=for-the-badge)
 
-## Learn More
+### **Deploy /**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![](https://img.shields.io/badge/render-Docker-232f3e?style=for-the-badge&logo=render)
+![](https://img.shields.io/badge/aws-s3-232f3e?style=for-the-badge&logo=amazon)
+![](https://img.shields.io/badge/cloudfront-232f3e?style=for-the-badge)
+![](https://img.shields.io/badge/route53-232f3e?style=for-the-badge)</br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+</br></br>
+
+# 📸 **Screenshots**
+
+<img width="100%" alt="images" src="https://portfolio-assets-archive.s3.amazonaws.com/taskboard/02-taskboard2.png">
+
+<img width="100%" alt="gif1" src="https://portfolio-assets-archive.s3.amazonaws.com/taskboard/gif-drag.gif" >
+
+<img width="100%" alt="gif2" src="https://portfolio-assets-archive.s3.amazonaws.com/taskboard/gif-new-task.gif" >
+
+</br>
+
+---
+
+# **📋 TaskBoard**</BR>**https://taskboard.wonjunkang.com**
