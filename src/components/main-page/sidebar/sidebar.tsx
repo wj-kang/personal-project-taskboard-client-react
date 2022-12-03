@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { DragDropContext, DropResult, Droppable } from 'react-beautiful-dnd';
 import { fetchBoardById } from '../../../features/board/boardAPI';
@@ -8,8 +8,7 @@ import SidebarListItem from './sidebar-list-item';
 import styles from './sidebar.module.css';
 
 function Sidebar() {
-  const boards: BoardBaseDTO[] = useAppSelector((state) => state.boardlist);
-  const [selectedBoardIdx, setSelectedBoardIdx] = useState<number>(0);
+  const { selectedIdx, boards } = useAppSelector((state) => state.boardlist);
   const dispatch = useAppDispatch();
 
   async function handleAddNewBoard(): Promise<void> {
@@ -25,18 +24,18 @@ function Sidebar() {
   }
 
   function handleSelectBoard(boardIdx: number): void {
-    setSelectedBoardIdx(boardIdx);
+    dispatch({ type: 'boardlist/setSelectedIdx', payload: boardIdx });
   }
 
   // When selected idx changes, fetching board data
   useEffect(() => {
-    if (!boards || boards.length < 1) {
+    if (!boards || boards.length < 1 || selectedIdx === -1) {
       return;
     }
     (async function () {
       try {
         dispatch({ type: 'loader/on' });
-        const data: BoardDetailDTO = await fetchBoardById(boards[selectedBoardIdx].id);
+        const data: BoardDetailDTO = await fetchBoardById(boards[selectedIdx].id);
         dispatch({ type: 'board/setBoard', payload: data });
       } catch (e: any) {
         alert(e.toString());
@@ -45,7 +44,7 @@ function Sidebar() {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [boards, selectedBoardIdx]);
+  }, [selectedIdx]);
 
   async function handleDragEnd(result: DropResult) {
     const { source: src, destination: dest } = result;
@@ -55,16 +54,16 @@ function Sidebar() {
 
     try {
       dispatch({ type: 'boardlist/boardListDrag', payload: { src, dest } });
-      if (src.index < selectedBoardIdx) {
-        if (dest.index >= selectedBoardIdx) {
-          setSelectedBoardIdx((prev) => prev - 1);
+      if (src.index < selectedIdx) {
+        if (dest.index >= selectedIdx) {
+          dispatch({ type: 'boardlist/setSelectedIdx', payload: selectedIdx - 1 });
         }
-      } else if (src.index > selectedBoardIdx) {
-        if (dest.index <= selectedBoardIdx) {
-          setSelectedBoardIdx((prev) => prev + 1);
+      } else if (src.index > selectedIdx) {
+        if (dest.index <= selectedIdx) {
+          dispatch({ type: 'boardlist/setSelectedIdx', payload: selectedIdx + 1 });
         }
       } else {
-        setSelectedBoardIdx(dest.index);
+        dispatch({ type: 'boardlist/setSelectedIdx', payload: dest.index });
       }
       await updateBoardOrderAPI(src.index, dest.index);
     } catch (e: any) {
@@ -90,7 +89,7 @@ function Sidebar() {
                   idx={idx}
                   title={b.title}
                   handleClick={handleSelectBoard}
-                  isSelected={idx === selectedBoardIdx}
+                  isSelected={idx === selectedIdx}
                 />
               ))}
               {provided.placeholder}

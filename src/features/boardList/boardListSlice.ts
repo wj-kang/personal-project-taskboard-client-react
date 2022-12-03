@@ -2,32 +2,45 @@ import { DraggableLocation } from 'react-beautiful-dnd';
 import { BoardBaseDTO } from './../../types/board';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: BoardBaseDTO[] = [];
+interface BoardListState {
+  boards: BoardBaseDTO[];
+  selectedIdx: number;
+}
+
+const initialState: BoardListState = {
+  boards: [],
+  selectedIdx: -1,
+};
 
 export const boardListSlice = createSlice({
   name: 'boardlist',
   initialState,
   reducers: {
+    setSelectedIdx: (state, action: PayloadAction<number>) => {
+      state.selectedIdx = action.payload;
+    },
+    //
     set: (state, action: PayloadAction<BoardBaseDTO[]>) => {
-      return action.payload;
+      state.boards = action.payload;
+      state.selectedIdx = 0;
     },
     //
     add: (state, action: PayloadAction<BoardBaseDTO>) => {
-      state.push(action.payload);
+      state.boards.push(action.payload);
     },
     //
     updateTitle: (state, action: PayloadAction<BoardBaseDTO>) => {
       const { id, title } = action.payload;
-      state.forEach((el) => (el.id === id ? (el.title = title) : null));
+      state.boards.forEach((b) => (b.id === id ? (b.title = title) : null));
     },
     //
     boardListDrag: (state, action: PayloadAction<{ src: DraggableLocation; dest: DraggableLocation }>) => {
       const { src, dest } = action.payload;
-      reorderArray(state, src.index, dest.index);
+      reorderArray(state.boards, src.index, dest.index);
     },
     //
     remove: (state, action: PayloadAction<{ id: string }>) => {
-      state.filter((el) => el.id !== action.payload.id);
+      state.boards.filter((el) => el.id !== action.payload.id);
     },
   },
 });

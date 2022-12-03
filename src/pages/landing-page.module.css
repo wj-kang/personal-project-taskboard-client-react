@@ -9,7 +9,6 @@
 }
 
 .container {
-  width: 100%;
-  max-width: 45rem;
+  min-width: 45rem;
   padding-bottom: 6rem;
 }
