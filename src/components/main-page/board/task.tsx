@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { TaskDTO } from '../../../types/task';
 import IconPencil from '../../icons/icon-pencil';
@@ -43,4 +43,4 @@ function Task({ data, taskIndex }: TaskProps) {
   );
 }
 
-export default Task;
+export default memo(Task);

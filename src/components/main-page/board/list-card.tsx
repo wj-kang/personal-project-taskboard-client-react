@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   addNewTaskAPI,
@@ -177,4 +177,4 @@ function ListCard({ index }: ListCardProps) {
   );
 }
 
-export default ListCard;
+export default memo(ListCard);

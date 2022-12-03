@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../app/hooks';
 import IconLogout from '../../icons/icon-logout';
@@ -43,4 +43,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default memo(Navbar);

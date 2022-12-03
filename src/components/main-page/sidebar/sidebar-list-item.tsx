@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
 import styles from './sidebar.module.css';
@@ -31,4 +32,4 @@ function SidebarListItem(props: SidebarListItemProps) {
   );
 }
 
-export default SidebarListItem;
+export default memo(SidebarListItem);
